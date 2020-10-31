@@ -1,0 +1,4 @@
+<launch>
+<node name = "publisher" pkg = "cym_nodes" type = "minimal_publisher"/>
+<node name = "subscriber" pkg = "cym_nodes" type = "minimal_subscriber"/>
+</launch>
