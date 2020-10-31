@@ -1,2 +1,4 @@
 # ros_catkin_ws
-cym的catkin_ws工作空间
+ROS工作空间
+cym
+1252843778@qq.com
