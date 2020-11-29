@@ -34,6 +34,4 @@ int main(int argc, char **argv)
 	publisher_object.publish(my_message);
 	naptime.sleep();
 	}
-
 }
-

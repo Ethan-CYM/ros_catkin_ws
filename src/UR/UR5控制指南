@@ -1,0 +1,64 @@
+上述三个文件分别为只使用一个机器人,使用两个机器人,使用两个机器人及传感器的文件,不要对三个文件进行修改
+使用方式:
+
+cd /home/e305/AClearning
+
+source /home/e305/AClearning/devel/setup.bash
+
+singleArm
+source ~/AClearning/devel/setup.bash
+roslaunch ur_modern_driver ur5_bringup.launch robot_ip:=192.168.0.103 //左边103，右边104
+roslaunch ur_arm ur_sample.launch
+rosrun ur_arm singleArm
+
+
+doubleArm
+source ~/AClearning/devel/setup.bash
+roslaunch uu_robot uu_double.launch
+roslaunch ur_arm_left ur_sample.launch
+roslaunch ur_arm_right ur_sample.launch
+rosrun ur_arm doubleArm
+
+
+
+withForceSensor
+source ~/AClearning/devel/setup.bash
+roslaunch uu_robot uu_double.launch
+roslaunch ur_arm_left ur_sample.launch
+roslaunch ur_arm_right ur_sample.launch
+rosrun netft_utils netft_node_A 192.168.0.101
+rosrun netft_utils netft_node_B 192.168.0.102
+rosrun ur_arm withForceSensor
+
+
+learningCompliant
+source ~/AClearning/devel/setup.bash
+roslaunch ur_modern_driver ur5_bringup.launch robot_ip:=192.168.0.104
+rosrun netft_utils netft_node_A 192.168.0.101
+roslaunch ur_arm ur_sample.launch
+rosrun ur_arm learning_compliant
+
+
+
+source## 单机仿真-gazebo
+- roslaunch ur_gazebo ur5.launch limited:=true
+- rosrun ur_driver test_move.py
+## 单机实物控制-不用moveit
+- roslaunch ur_modern_driver ur5_bringup.launch robot_ip:=192.168.0.103
+- rosrun ur_modern_driver simple_move.py
+（给的关节解组需要在simple_move.py中先设置好，此文件路径为/home/e305/Project/Robot_uu_V1/src/universal_robot-indigo-devel/ur_modern_driver/simple_move.py）
+
+## 单机实物控制-用moveit
+- roslaunch ur_modern_driver ur5_bringup.launch robot_ip:=192.168.0.103
+- roslaunch ur5_moveit_config ur5_moveit_planning_execution.launch limited:=true
+- roslaunch ur5_moveit_config moveit_rviz.launch config:=true
+- 在rviz中拖动控制机器人
+- 或者使用rosrun ur_modern_driver simple_move.py关节角组控制
+- 或者使用……笛卡尔空间路径点控制（脚本待写）
+
+
+## 新创建的python脚本需要赋予执行权限
+## 给文件运行权限
+- sudo chmod +x [路径名/文件名]
+## 给文件所有权限
+- sudo chmod 777 [路径名/文件名]
