@@ -1,0 +1,13 @@
+<launch>
+  <arg name = "sensor_num" default = "1"/>
+  <param name = "sensorNum"  value = "$(arg sensor_num)" />
+
+  <arg name = "serial_num_A"  default="/dev/ttyUSB0"/>
+  <param name = "serialNumA" type = "string" value = "$(arg serial_num_A)" />
+
+  <arg name = "serial_num_B"  default = "/dev/ttyUSB1"/>
+  <param name = "serialNumB"  value = "$(arg serial_num_B)" />
+
+  <node name="kw_ft_sensor_node" pkg = "kw_ft_sensor" type = "ft_data_re" output = "screen" >
+  </node>
+</launch>

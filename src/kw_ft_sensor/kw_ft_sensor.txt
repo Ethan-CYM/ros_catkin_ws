@@ -1,0 +1,5 @@
+roslaunch kw_ft_sensor kw_ft.launch serial_num_A:=/dev/ttyUSB0  //具体的串口号可能不是/dev/ttyUSB0
+
+查看串口号：$ ls -l /dev/tty*
+
+给串口开所有权限：$ sudo chmod 777 /dev/ttyUSB0

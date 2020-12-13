@@ -38,7 +38,7 @@ def main():
     acceleration = 0.5
     dt = 1.0/500  # 2ms
     lookahead_time = 0.1
-    gain = 100
+    gain = 300
     try:
         rospy.init_node("ur_move", anonymous=True, disable_signals=True)
         rospy.Subscriber("ur_control_parameter", JointTrajectory, ControlParamterCallback)
@@ -48,7 +48,13 @@ def main():
         while not rospy.is_shutdown():
             if(magFlag == True):
                 magFlag = False
-                rtde_c.servoJ(urQ, velocity, acceleration, dt, lookahead_time, gain)
+                # rtde_c.servoJ(urQ, velocity, acceleration, dt, lookahead_time, gain)
+                # rtde_c.servoJ(urQ, velocity, acceleration, dt, 0.03, 2000)
+                rtde_c.servoJ(urQ, velocity, acceleration, dt, 0.1, 300)
+                # rtde_c.servoJ(urQ, velocity, acceleration, dt, 0.03, 2000)
+                # rtde_c.moveJ(urQ, velocity, acceleration,True)
+                # rtde_c.moveJ(urQ, 2.5, 2)
+                # time.sleep(0.02)
     except KeyboardInterrupt:
         rospy.signal_shutdown("KeyboardInterrupt")
         rtde_c.servoStop()

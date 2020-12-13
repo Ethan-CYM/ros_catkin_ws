@@ -47,7 +47,6 @@ float* jointAngleMap(float touchAngle[])
   urAngle[3] = (touchAngle[4] + PI) * mapCoefficient - PI;
   urAngle[4] = -(touchAngle[3] - PI) * mapCoefficient * 0.5 - 2 * PI / 4;
   urAngle[5] = -(touchAngle[5] + PI) * mapCoefficient * 0.8 - 0 * PI / 4;
-
   return urAngle;
 }
 
@@ -107,7 +106,6 @@ bool TeleoperationInit(void)
 
 int main(int argc, char **argv)
 {
-
 	ros::init(argc, argv, "touch_teleoperation_ros");
 
 	ros::NodeHandle n;

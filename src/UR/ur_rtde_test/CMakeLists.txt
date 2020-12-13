@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(test)
+project(ur_rtde_test)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
  add_compile_options(-std=c++11)
@@ -129,7 +129,7 @@ include_directories(
 
 
 add_executable(test src/test.cpp)
-target_link_libraries(test ${catkin_LIBRARIES} ur_rtde/rtde )
+target_link_libraries(test ${catkin_LIBRARIES} ur_rtde::rtde )
 
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}

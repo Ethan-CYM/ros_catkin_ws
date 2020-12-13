@@ -72,7 +72,7 @@ def main():
     try:
         rospy.init_node("test_move", anonymous=True, disable_signals=True)
         client = actionlib.SimpleActionClient('follow_joint_trajectory', FollowJointTrajectoryAction)
-        #client = actionlib.SimpleActionClient("arm_controller/follow_joint_trajectory", FollowJointTrajectoryAction)
+        # client = actionlib.SimpleActionClient("arm_controller/follow_joint_trajectory", FollowJointTrajectoryAction)
         rospy.Subscriber("ur_control_parameter", JointTrajectory, ControlParamterCallback)
 
         print("Waiting for server...")
