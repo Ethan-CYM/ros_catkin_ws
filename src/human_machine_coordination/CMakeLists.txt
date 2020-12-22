@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.0.2)
-project(man_machine_coordination)
+project(human_machine_coordination)
 
 add_compile_options(-std=c++11)
 
@@ -7,12 +7,15 @@ find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
   std_msgs
+  geometry_msgs
   message_generation
   roslaunch
 )
 find_package(ur_rtde REQUIRED)
 
 find_package(Boost REQUIRED COMPONENTS system)
+# add Eigen3
+find_package(Eigen3 REQUIRED)
 
 if (CATKIN_ENABLE_TESTING)
   find_package(roslaunch REQUIRED)
@@ -23,6 +26,9 @@ endif()
 
 add_message_files(
   FILES
+  RobotPose.msg
+  RobotControl.msg
+  RobotData.msg
 )
 
 # add_service_files(
@@ -39,7 +45,8 @@ add_message_files(
 
 generate_messages(
   DEPENDENCIES
-  std_msgs  # Or other packages containing msgs
+  std_msgs
+  geometry_msgs
 )
 
 # generate_dynamic_reconfigure_options(
@@ -48,10 +55,10 @@ generate_messages(
 # )
 
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES man_machine_coordination
-#  CATKIN_DEPENDS roscpp rospy message_runtime
-#  DEPENDS system_lib
+  INCLUDE_DIRS include
+  LIBRARIES man_machine_coordination
+  CATKIN_DEPENDS roscpp rospy message_runtime
+  DEPENDS system_lib EIGEN3
 )
 
 ###########
@@ -63,9 +70,9 @@ catkin_package(
 include_directories(
  include
   ${catkin_INCLUDE_DIRS}
+  ${Eigen_INCLUDE_DIRS}
   ~/catkin_ws/devel/include
 )
-
 ## Declare a C++ library
 # add_library(${PROJECT_NAME}
 #   src/${PROJECT_NAME}/man_machine_coordination.cpp
@@ -73,11 +80,17 @@ include_directories(
 
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-add_executable(mmc_ur_move src/mmc_ur_move.cpp)
-target_link_libraries(mmc_ur_move ${catkin_LIBRARIES} ur_rtde::rtde )
+add_executable(hmc_ur_move src/hmc_ur_move.cpp)
+target_link_libraries(hmc_ur_move ${catkin_LIBRARIES} ur_rtde::rtde)
 
 add_executable(data_processing src/data_processing.cpp)
 target_link_libraries(data_processing ${catkin_LIBRARIES})
+
+add_executable(hmc_ur_data src/hmc_ur_data.cpp)
+target_link_libraries(hmc_ur_data ${catkin_LIBRARIES} ur_rtde::rtde)
+
+add_executable(test_code src/test_code.cpp)
+target_link_libraries(test_code ${catkin_LIBRARIES})
 
 #############
 ## Install ##

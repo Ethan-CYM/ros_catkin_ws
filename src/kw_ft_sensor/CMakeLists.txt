@@ -62,9 +62,9 @@ include_directories(
 #   src/${PROJECT_NAME}/kw_force_sensor.cpp
 # )
 
-add_executable(ft_data_re src/ft_data_re.cpp)
-target_link_libraries(ft_data_re ${catkin_LIBRARIES})
-add_dependencies(ft_data_re ${catkin_EXPORTED_TARGETS})
+add_executable(ft_data src/ft_data.cpp)
+target_link_libraries(ft_data ${catkin_LIBRARIES})
+add_dependencies(ft_data ${catkin_EXPORTED_TARGETS})
 
 # add_dependencies(${PROJECT_NAME} ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 

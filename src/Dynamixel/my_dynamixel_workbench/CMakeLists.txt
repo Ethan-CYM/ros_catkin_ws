@@ -75,8 +75,6 @@ include_directories(
   ${YAML_CPP_INCLUDE_DIRS}
 )
 
-
-
 add_executable(my_dynamixel_controller src/my_dxl_master.cpp src/trajectory_generator.cpp)
 target_link_libraries(my_dynamixel_controller ${catkin_LIBRARIES} ${Eigen3_LIBRARIES} ${YAML_CPP_LIBRARIES})
 

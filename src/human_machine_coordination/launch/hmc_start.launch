@@ -1,0 +1,14 @@
+<launch>
+
+ <!-- <arg name = "serial_num_A"  default="/dev/ttyUSB0"/>
+  <param name = "serialNumA" type = "string" value = "$(arg serial_num_A)" />-->
+
+  <include file="$(find kw_ft_sensor)/launch/kw_ft.launch">
+  </include>
+  <node name="hmc_ur_data" pkg = "human_machine_coordination" type = "hmc_ur_data" output = "screen" >
+  </node>
+  <node name="data_processing" pkg = "human_machine_coordination" type = "data_processing" output = "screen" >
+  </node>
+  <node name="hmc_ur_move" pkg = "human_machine_coordination" type = "hmc_ur_move" output = "screen" >
+  </node>
+</launch>
