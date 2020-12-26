@@ -11,31 +11,35 @@ using namespace std::chrono;
 
 class  UR_Data{
  private:
- RTDEReceiveInterface rtde_receive;
+ RTDEReceiveInterface rtdeReceive;
+ human_machine_coordination::RobotData urData;
  public:
- UR_Data():rtde_receive("192.168.0.104")
+ UR_Data(std::string IPAdress = "127.0.0.1"):rtdeReceive(IPAdress)
  {
 
  }
-  human_machine_coordination::RobotData urParmater;
-  void get_urP(void)
+  human_machine_coordination::RobotData get_Parmater(void)
   {
-    std::vector<double> urP;
-    urP = rtde_receive.getActualTCPPose();
-    urParmater.pose.x = urP.at(0);
-    urParmater.pose.y = urP.at(1);
-    urParmater.pose.z = urP.at(2);
-    urParmater.pose.Rx = urP.at(3);
-    urParmater.pose.Ry = urP.at(4);
-    urParmater.pose.Rz = urP.at(5);
-//    printf("z = %2f \n",urP.at(0));
+
+    urData.actualTCPPose = rtdeReceive.getActualTCPPose();
+    urData.targetTCPPose = rtdeReceive.getTargetTCPPose();
+    urData.actualTCPSpeed = rtdeReceive.getActualTCPSpeed();
+    urData.targetTCPSpeed = rtdeReceive.getTargetTCPSpeed();
+    urData.actualTCPForce = rtdeReceive.getActualTCPForce();
+    urData.actualToolAccel = rtdeReceive.getActualToolAccelerometer();
+    return urData;
+  }
+  void publishMsg(ros::Publisher publisher, human_machine_coordination::RobotData msg)
+  {
+    msg.header.stamp = ros::Time::now();
+    publisher.publish(msg);
   }
 };
 
 
 int main(int argc, char **argv)
 {
-  UR_Data urData;
+  UR_Data urRight("192.168.0.104");
 
   ros::init(argc, argv, "hmc_ur_data");
 
@@ -47,9 +51,7 @@ int main(int argc, char **argv)
 
   while(ros::ok())
   {
-    urData.get_urP();
-    urData.urParmater.header.stamp = ros::Time::now();
-    urDataPub.publish(urData.urParmater);
+    urRight.publishMsg(urDataPub, urRight.get_Parmater());
     loop_rate.sleep();
   }
   return 0;

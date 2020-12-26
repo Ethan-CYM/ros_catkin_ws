@@ -13,8 +13,8 @@ enum contol_mode{
 
 typedef struct
 {
-double velocity = 1;
-double acceleration = 1;
+double velocity = 0.5;
+double acceleration = 1.2;
 double lookaheadTime = 0.1;
 double gain = 100;
 }Servol_Arg;
@@ -34,10 +34,8 @@ typedef struct
 {
 const double velocity = 0.5;
 const double acceleration = 0.5;
-const double invertalTime = 1.0/128;
 Servol_Arg servol;
 ForceMode_Arg force;
-std::vector<double> initJoint = {0.0, -90.0, 0.0, -90.0, 0.0, 0.0};
 std::vector<double> initPose = {0.0, -194.0, 1000.0, 0.0055, 2.2262, -2.2214};
 contol_mode mode = stop;
 }Move_Arg;
